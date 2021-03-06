@@ -7,15 +7,20 @@
 
 import UIKit
 import FeedKit
-import Kingfisher
 
 class HomeVC: UIViewController {
 
     @IBOutlet weak var channelImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+    private struct Segue {
+        
+        static let episodeVC = "SegueEpisodeVC"
+    }
+    
     let provider = FeedProvider()
     var rssFeed: RSSFeed?
+    var selectedItem: RSSFeedItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +49,20 @@ class HomeVC: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let episodeVC = segue.destination as? EpisodeVC else { return }
+        episodeVC.item = selectedItem
+    }
 }
 
 extension HomeVC: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedItem = rssFeed?.items?[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: Segue.episodeVC, sender: nil)
+    }
 }
 
 extension HomeVC: UITableViewDataSource {
@@ -64,10 +79,10 @@ extension HomeVC: UITableViewDataSource {
         
         let item = rssFeed?.items?[indexPath.row]
         let dateString = Date.dateToDateString(item?.pubDate ?? Date())
-        let imageURL = URL(string: item?.iTunes?.iTunesImage?.attributes?.href ?? "")
+        let imageURL = item?.iTunes?.iTunesImage?.attributes?.href
         episodeCell.titleLabel.text = item?.title
         episodeCell.dateLabel.text = dateString
-        episodeCell.episodeImage.kf.setImage(with: imageURL)
+        episodeCell.episodeImage.loadImage(imageURL)
         
         return episodeCell
     }
