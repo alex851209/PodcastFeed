@@ -16,19 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Ru-Ca-VwJ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="230"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="230" id="AZc-Gb-DMh"/>
-                                </constraints>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WMY-qs-WuW">
-                                <rect key="frame" x="0.0" y="230" width="414" height="632"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <imageView key="tableHeaderView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6Ru-Ca-VwJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EpisodeCell" rowHeight="130" id="O6t-Oq-Ew5" customClass="EpisodeCell" customModule="PodcastFeed" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="130"/>
+                                        <rect key="frame" x="0.0" y="238" width="414" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O6t-Oq-Ew5" id="Bwb-IV-19Q">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
@@ -36,7 +33,6 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4dj-r6-wk5">
                                                     <rect key="frame" x="16" y="16" width="99" height="98"/>
-                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="4dj-r6-wk5" secondAttribute="height" constant="1" id="rKK-Md-X8J"/>
                                                     </constraints>
@@ -78,16 +74,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Ru-Ca-VwJ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="JKF-Cb-8Wz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="WMY-qs-WuW" secondAttribute="bottom" id="L1Z-rS-lSL"/>
-                            <constraint firstItem="6Ru-Ca-VwJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NCp-85-JP1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WMY-qs-WuW" secondAttribute="trailing" id="SwG-gB-p4e"/>
                             <constraint firstItem="WMY-qs-WuW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="b3w-3n-dmZ"/>
-                            <constraint firstItem="WMY-qs-WuW" firstAttribute="top" secondItem="6Ru-Ca-VwJ" secondAttribute="bottom" id="n6a-9a-CtK"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Ru-Ca-VwJ" secondAttribute="trailing" id="oDI-E8-lxe"/>
+                            <constraint firstItem="WMY-qs-WuW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="o93-Hd-1sm"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="channelImage" destination="6Ru-Ca-VwJ" id="E5F-wz-DGC"/>
                         <outlet property="tableView" destination="WMY-qs-WuW" id="PYe-4Q-UdX"/>
                     </connections>
                 </viewController>
