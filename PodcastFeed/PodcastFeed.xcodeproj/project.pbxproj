@@ -19,6 +19,7 @@
 		A5D7C7B725F3898900BB1094 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7C7B625F3898900BB1094 /* Date+Ext.swift */; };
 		A5FB191A25F3A173005A4D71 /* EpisodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FB191925F3A173005A4D71 /* EpisodeVC.swift */; };
 		A5FB191E25F3A728005A4D71 /* KingfisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FB191D25F3A728005A4D71 /* KingfisherWrapper.swift */; };
+		A5FB192225F3B379005A4D71 /* PlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FB192125F3B379005A4D71 /* PlayerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		A5D7C7B625F3898900BB1094 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		A5FB191925F3A173005A4D71 /* EpisodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeVC.swift; sourceTree = "<group>"; };
 		A5FB191D25F3A728005A4D71 /* KingfisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherWrapper.swift; sourceTree = "<group>"; };
+		A5FB192125F3B379005A4D71 /* PlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerVC.swift; sourceTree = "<group>"; };
 		C333A3A2D8BC168BD2546D17 /* Pods-PodcastFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodcastFeed.debug.xcconfig"; path = "Target Support Files/Pods-PodcastFeed/Pods-PodcastFeed.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +79,7 @@
 				A5D7C78F25F371DB00BB1094 /* SceneDelegate.swift */,
 				A5D7C79125F371DB00BB1094 /* HomeVC.swift */,
 				A5FB191925F3A173005A4D71 /* EpisodeVC.swift */,
+				A5FB192125F3B379005A4D71 /* PlayerVC.swift */,
 				A5D7C7A825F376A200BB1094 /* EpisodeCell.swift */,
 				A5D7C7B225F37DC100BB1094 /* FeedProvider.swift */,
 				A5D7C7B625F3898900BB1094 /* Date+Ext.swift */,
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5FB192225F3B379005A4D71 /* PlayerVC.swift in Sources */,
 				A5FB191A25F3A173005A4D71 /* EpisodeVC.swift in Sources */,
 				A5D7C79225F371DB00BB1094 /* HomeVC.swift in Sources */,
 				A5D7C7B325F37DC100BB1094 /* FeedProvider.swift in Sources */,
