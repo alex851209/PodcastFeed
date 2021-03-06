@@ -1,16 +1,22 @@
 PODS:
   - FeedKit (9.1.2)
+  - Kingfisher (5.15.8):
+    - Kingfisher/Core (= 5.15.8)
+  - Kingfisher/Core (5.15.8)
 
 DEPENDENCIES:
   - FeedKit (~> 9.0)
+  - Kingfisher
 
 SPEC REPOS:
   trunk:
     - FeedKit
+    - Kingfisher
 
 SPEC CHECKSUMS:
   FeedKit: 71653273ab08e618cd6fd1301ca08fc02dca6a9e
+  Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
 
-PODFILE CHECKSUM: 5ce608de3d3f9cacdfa50a9d5e0ba0c8d3869684
+PODFILE CHECKSUM: bd6b5fd7bf46e15720f2ba03f1432119c6153896
 
 COCOAPODS: 1.10.0

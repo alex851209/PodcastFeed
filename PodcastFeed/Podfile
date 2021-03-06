@@ -7,4 +7,5 @@ target 'PodcastFeed' do
 
   # Pods for PodcastFeed
   pod 'FeedKit', '~> 9.0'
+  pod 'Kingfisher'
 end
