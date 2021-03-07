@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FeedKit
 
 class HomeVC: UIViewController {
 
@@ -34,9 +33,9 @@ class HomeVC: UIViewController {
         FeedProvider.shared.fetchFeed { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let feed):
+            case .success(let channel):
                 DispatchQueue.main.async {
-                    self.channelImage.kf.setImage(with: URL(string: feed?.image?.url ?? ""))
+                    self.channelImage.loadImage(channel?.imageURLString)
                     self.tableView.reloadData()
                 }
             case .failure(let error):
@@ -58,7 +57,7 @@ extension HomeVC: UITableViewDelegate {
 extension HomeVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FeedProvider.shared.items?.count ?? 0
+        return FeedProvider.shared.episodes.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 130 }
@@ -69,12 +68,11 @@ extension HomeVC: UITableViewDataSource {
         guard let episodeCell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? EpisodeCell
         else { return cell }
         
-        let item = FeedProvider.shared.items?[indexPath.row]
-        let dateString = Date.dateToDateString(item?.pubDate ?? Date())
-        let imageURL = item?.iTunes?.iTunesImage?.attributes?.href
-        episodeCell.titleLabel.text = item?.title
+        let episode = FeedProvider.shared.episodes[indexPath.row]
+        let dateString = Date.dateToDateString(episode.pubDate)
+        episodeCell.titleLabel.text = episode.title
         episodeCell.dateLabel.text = dateString
-        episodeCell.episodeImage.loadImage(imageURL)
+        episodeCell.episodeImage.loadImage(episode.imageURLString)
         
         return episodeCell
     }

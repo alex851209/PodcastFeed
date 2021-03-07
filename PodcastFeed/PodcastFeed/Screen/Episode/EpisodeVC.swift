@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FeedKit
 
 class EpisodeVC: UIViewController {
 
@@ -24,15 +23,14 @@ class EpisodeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        configureItem()
+        configureEpisode()
     }
     
-    private func configureItem() {
-        let item = FeedProvider.shared.getCurrentItem()
-        let imageURL = item.iTunes?.iTunesImage?.attributes?.href
-        episodeImage.loadImage(imageURL)
-        titleLabel.text = item.title
-        descriptionTextView.text = item.description
+    private func configureEpisode() {
+        let episode = FeedProvider.shared.getCurrentEpisode()
+        episodeImage.loadImage(episode?.imageURLString)
+        titleLabel.text = episode?.title
+        descriptionTextView.text = episode?.description
     }
     
     private func showPlayer() { performSegue(withIdentifier: Segue.playerVC, sender: nil) }

@@ -7,7 +7,6 @@
 
 import UIKit
 import AVFoundation
-import FeedKit
 
 class PlayerVC: UIViewController {
 
@@ -22,13 +21,13 @@ class PlayerVC: UIViewController {
     
     var player: AVPlayer!
     var playerItem: AVPlayerItem!
-    var item: RSSFeedItem?
+    var episode: Episode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureNotificationCenter()
-        play()
+        playEpisode()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -38,21 +37,20 @@ class PlayerVC: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private func configureItem() {
-        item = FeedProvider.shared.getCurrentItem()
-        let imageURL = item?.iTunes?.iTunesImage?.attributes?.href
-        episodeImage.loadImage(imageURL)
-        titleLabel.text = item?.title
+    private func configureEpisode() {
+        episode = FeedProvider.shared.getCurrentEpisode()
+        episodeImage.loadImage(episode?.imageURLString)
+        titleLabel.text = episode?.title
     }
     
-    private func configureAVPlayer() {
-        guard let episodeURL = URL(string: item?.enclosure?.attributes?.url ?? "") else { return }
+    private func configurePlayer() {
+        guard let episodeURL = URL(string: episode?.mediaURLString ?? "") else { return }
         playerItem = AVPlayerItem(url: episodeURL)
         player = AVPlayer(playerItem: playerItem)
         player.play()
     }
     
-    private func configureProgressSlider() {
+    private func configureSlider() {
         let duration = playerItem.asset.duration
         let seconds = CMTimeGetSeconds(duration)
         progressSlider.minimumValue = 0
@@ -78,10 +76,10 @@ class PlayerVC: UIViewController {
         )
     }
     
-    private func play() {
-        configureItem()
-        configureAVPlayer()
-        configureProgressSlider()
+    private func playEpisode() {
+        configureEpisode()
+        configurePlayer()
+        configureSlider()
         configureObserver()
     }
     
@@ -116,6 +114,6 @@ class PlayerVC: UIViewController {
     @objc private func playerDidFinishPlaying(note: NSNotification) {
         guard FeedProvider.shared.hasNextEpisode() else { return }
         FeedProvider.shared.switchToNextEpisode()
-        play()
+        playEpisode()
     }
 }

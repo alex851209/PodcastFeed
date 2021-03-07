@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		116CAD5C40F912F4CC6ABB4B /* Pods_PodcastFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC932923945AE3B1AEACB66 /* Pods_PodcastFeed.framework */; };
+		A5386CAB25F4E88F00883252 /* FeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5386CAA25F4E88F00883252 /* FeedData.swift */; };
 		A5D7C78E25F371DB00BB1094 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7C78D25F371DB00BB1094 /* AppDelegate.swift */; };
 		A5D7C79025F371DB00BB1094 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7C78F25F371DB00BB1094 /* SceneDelegate.swift */; };
 		A5D7C79225F371DB00BB1094 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7C79125F371DB00BB1094 /* HomeVC.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		13760FC72FC6CF00324A37E1 /* Pods-PodcastFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodcastFeed.release.xcconfig"; path = "Target Support Files/Pods-PodcastFeed/Pods-PodcastFeed.release.xcconfig"; sourceTree = "<group>"; };
 		3BC932923945AE3B1AEACB66 /* Pods_PodcastFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodcastFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5386CAA25F4E88F00883252 /* FeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedData.swift; sourceTree = "<group>"; };
 		A5D7C78A25F371DB00BB1094 /* PodcastFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodcastFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D7C78D25F371DB00BB1094 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5D7C78F25F371DB00BB1094 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D7C7B225F37DC100BB1094 /* FeedProvider.swift */,
+				A5386CAA25F4E88F00883252 /* FeedData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5FB192225F3B379005A4D71 /* PlayerVC.swift in Sources */,
+				A5386CAB25F4E88F00883252 /* FeedData.swift in Sources */,
 				A5FB191A25F3A173005A4D71 /* EpisodeVC.swift in Sources */,
 				A5D7C79225F371DB00BB1094 /* HomeVC.swift in Sources */,
 				A5D7C7B325F37DC100BB1094 /* FeedProvider.swift in Sources */,
