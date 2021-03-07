@@ -27,6 +27,7 @@ class PlayerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNotificationCenter()
         play()
     }
     
@@ -34,6 +35,7 @@ class PlayerVC: UIViewController {
         super.viewWillDisappear(true)
         
         player.pause()
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func configureItem() {
@@ -67,6 +69,14 @@ class PlayerVC: UIViewController {
         }
     }
     
+    private func configureNotificationCenter() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(playerDidFinishPlaying),
+            name: .AVPlayerItemDidPlayToEndTime,
+            object: nil
+        )
+    }
     
     private func play() {
         configureItem()
@@ -101,5 +111,11 @@ class PlayerVC: UIViewController {
         let seconds = Int64(sender.value)
         let targetTime = CMTimeMake(value: seconds, timescale: 1)
         player.seek(to: targetTime)
+    }
+    
+    @objc private func playerDidFinishPlaying(note: NSNotification) {
+        guard FeedProvider.shared.hasNextEpisode() else { return }
+        FeedProvider.shared.switchToNextEpisode()
+        play()
     }
 }

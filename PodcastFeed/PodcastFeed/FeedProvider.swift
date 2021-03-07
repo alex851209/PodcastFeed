@@ -39,4 +39,10 @@ class FeedProvider {
         return item
     }
     
+    func hasNextEpisode() -> Bool {
+        guard let currentIndex = currentIndex else { return false }
+        return currentIndex > 0 ? true : false
+    }
+    
+    func switchToNextEpisode() { self.currentIndex? -= 1 }
 }
