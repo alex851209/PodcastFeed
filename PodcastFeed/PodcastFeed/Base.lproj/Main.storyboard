@@ -199,6 +199,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="PdN-6e-yOJ"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="currentTimeDidChanged:" destination="3Bz-6p-Mdn" eventType="valueChanged" id="zDo-wH-1JB"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AsJ-PB-0sc">
                                 <rect key="frame" x="149.5" y="731" width="115" height="115"/>
@@ -206,6 +209,9 @@
                                     <constraint firstAttribute="width" secondItem="AsJ-PB-0sc" secondAttribute="height" id="iF5-uG-kjN"/>
                                 </constraints>
                                 <state key="normal" image="pause.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="playPauseButtonDidTap:" destination="3Bz-6p-Mdn" eventType="touchUpInside" id="J14-Dr-bdW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ir-PO-h9U">
                                 <rect key="frame" x="81.5" y="773.5" width="60" height="30"/>
@@ -214,10 +220,16 @@
                                     <constraint firstAttribute="width" constant="60" id="ye2-vg-80g"/>
                                 </constraints>
                                 <state key="normal" image="backward" catalog="system"/>
+                                <connections>
+                                    <action selector="backwardButtonDidTap" destination="3Bz-6p-Mdn" eventType="touchUpInside" id="HKR-rj-tKA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avd-wS-aBg">
                                 <rect key="frame" x="272.5" y="773.5" width="60" height="30"/>
                                 <state key="normal" image="forward" catalog="system"/>
+                                <connections>
+                                    <action selector="forwardButtonDidTap" destination="3Bz-6p-Mdn" eventType="touchUpInside" id="Qgr-cM-Vo6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hRw-yO-GOD"/>
@@ -246,12 +258,13 @@
                     <navigationItem key="navigationItem" title="Player" id="6f0-yf-CMQ"/>
                     <connections>
                         <outlet property="episodeImage" destination="bRs-Q6-NkV" id="EQP-Ja-0E8"/>
+                        <outlet property="progressSlider" destination="Uya-GW-pvP" id="t7D-Xn-NXg"/>
                         <outlet property="titleLabel" destination="JJz-Zm-kIT" id="3mU-Vp-FFm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIi-wx-OvX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2500" y="76"/>
+            <point key="canvasLocation" x="2498.5507246376815" y="75.669642857142847"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FwT-5k-R6u">
