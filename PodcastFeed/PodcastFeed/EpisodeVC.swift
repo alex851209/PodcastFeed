@@ -18,28 +18,22 @@ class EpisodeVC: UIViewController {
     
     private struct Segue {
         
-        static let episodeVC = "SeguePlayerVC"
+        static let playerVC = "SeguePlayerVC"
     }
     
-    var item: RSSFeedItem?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         configureItem()
     }
     
     private func configureItem() {
-        let imageURL = item?.iTunes?.iTunesImage?.attributes?.href
+        let item = FeedProvider.shared.getCurrentItem()
+        let imageURL = item.iTunes?.iTunesImage?.attributes?.href
         episodeImage.loadImage(imageURL)
-        titleLabel.text = item?.title
-        descriptionTextView.text = item?.description
+        titleLabel.text = item.title
+        descriptionTextView.text = item.description
     }
     
-    private func showPlayer() { performSegue(withIdentifier: Segue.episodeVC, sender: nil) }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let playerVC = segue.destination as? PlayerVC else { return }
-        playerVC.item = item
-    }
+    private func showPlayer() { performSegue(withIdentifier: Segue.playerVC, sender: nil) }
 }

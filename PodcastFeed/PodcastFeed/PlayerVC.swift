@@ -27,10 +27,7 @@ class PlayerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureItem()
-        configureAVPlayer()
-        configureProgressSlider()
-        configureObserver()
+        play()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,6 +37,7 @@ class PlayerVC: UIViewController {
     }
     
     private func configureItem() {
+        item = FeedProvider.shared.getCurrentItem()
         let imageURL = item?.iTunes?.iTunesImage?.attributes?.href
         episodeImage.loadImage(imageURL)
         titleLabel.text = item?.title
@@ -67,6 +65,14 @@ class PlayerVC: UIViewController {
                 self.progressSlider.value = Float(currentTime)
             }
         }
+    }
+    
+    
+    private func play() {
+        configureItem()
+        configureAVPlayer()
+        configureProgressSlider()
+        configureObserver()
     }
     
     private func togglePlayPause(_ sender: UIButton) {

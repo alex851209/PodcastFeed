@@ -18,10 +18,6 @@ class HomeVC: UIViewController {
         static let episodeVC = "SegueEpisodeVC"
     }
     
-    let provider = FeedProvider()
-    var rssFeed: RSSFeed?
-    var selectedItem: RSSFeedItem?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,11 +31,10 @@ class HomeVC: UIViewController {
     }
     
     private func fetchFeed() {
-        provider.fetchFeed { [weak self] result in
+        FeedProvider.shared.fetchFeed { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let feed):
-                self.rssFeed = feed
                 DispatchQueue.main.async {
                     self.channelImage.kf.setImage(with: URL(string: feed?.image?.url ?? ""))
                     self.tableView.reloadData()
@@ -49,17 +44,12 @@ class HomeVC: UIViewController {
             }
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let episodeVC = segue.destination as? EpisodeVC else { return }
-        episodeVC.item = selectedItem
-    }
 }
 
 extension HomeVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedItem = rssFeed?.items?[indexPath.row]
+        FeedProvider.shared.currentIndex = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: Segue.episodeVC, sender: nil)
     }
@@ -67,7 +57,9 @@ extension HomeVC: UITableViewDelegate {
 
 extension HomeVC: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return rssFeed?.items?.count ?? 0 }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return FeedProvider.shared.items?.count ?? 0
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 130 }
     
@@ -77,7 +69,7 @@ extension HomeVC: UITableViewDataSource {
         guard let episodeCell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? EpisodeCell
         else { return cell }
         
-        let item = rssFeed?.items?[indexPath.row]
+        let item = FeedProvider.shared.items?[indexPath.row]
         let dateString = Date.dateToDateString(item?.pubDate ?? Date())
         let imageURL = item?.iTunes?.iTunesImage?.attributes?.href
         episodeCell.titleLabel.text = item?.title

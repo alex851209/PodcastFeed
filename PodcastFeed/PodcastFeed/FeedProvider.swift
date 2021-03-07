@@ -10,15 +10,33 @@ import FeedKit
 
 class FeedProvider {
     
+    static let shared = FeedProvider()
+    
+    private init() {}
+    
+    var items: [RSSFeedItem]?
+    var currentIndex: Int?
+    
     func fetchFeed(completion: @escaping (Result<RSSFeed?, ParserError>) -> Void) {
         let feedURL = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss")!
         let parser = FeedParser(URL: feedURL)
         
         parser.parseAsync { result in
             switch result {
-            case .success(let feed): completion(.success(feed.rssFeed))
-            case .failure(let error): completion(.failure(error))
+            case .success(let feed):
+                completion(.success(feed.rssFeed))
+                self.items = feed.rssFeed?.items
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
+    
+    func getCurrentItem() -> RSSFeedItem {
+        guard let currentIndex = currentIndex,
+              let item = items?[currentIndex]
+        else { return RSSFeedItem() }
+        return item
+    }
+    
 }
