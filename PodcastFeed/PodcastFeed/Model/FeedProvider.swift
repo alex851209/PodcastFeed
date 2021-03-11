@@ -55,29 +55,29 @@ class FeedProvider {
     
     private func makeChannelFrom(feed: Feed) -> Channel? {
         guard let items = feed.rssFeed?.items,
-              let imageURLString = feed.rssFeed?.image?.url,
-              let episodes = makeEpisodesFrom(items: items)
+              let imageURLString = feed.rssFeed?.image?.url
         else { return nil }
+        
+        for item in items {
+            guard let episode = makeEpisodeFrom(item: item) else { return nil }
+            episodes.append(episode)
+        }
         return Channel(imageURLString: imageURLString, episodes: episodes)
     }
     
-    private func makeEpisodesFrom(items: [RSSFeedItem]) -> [Episode]? {
-        for item in items {
-            guard let title = item.title,
-                  let description = item.description,
-                  let imageURLString = item.iTunes?.iTunesImage?.attributes?.href,
-                  let mediaURLString = item.enclosure?.attributes?.url,
-                  let pubDate = item.pubDate
-            else { return nil }
-            
-            episodes.append(
-                Episode(title: title,
-                        description: description,
-                        imageURLString: imageURLString,
-                        pubDate: pubDate,
-                        mediaURLString: mediaURLString)
-            )
-        }
-        return episodes
+    private func makeEpisodeFrom(item: RSSFeedItem) -> Episode? {
+        guard let title = item.title,
+              let description = item.description,
+              let imageURLString = item.iTunes?.iTunesImage?.attributes?.href,
+              let mediaURLString = item.enclosure?.attributes?.url,
+              let pubDate = item.pubDate
+        else { return nil }
+        
+        let episode = Episode(title: title,
+                              description: description,
+                              imageURLString: imageURLString,
+                              pubDate: pubDate,
+                              mediaURLString: mediaURLString)
+        return episode
     }
 }
