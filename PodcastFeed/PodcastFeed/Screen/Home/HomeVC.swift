@@ -69,10 +69,7 @@ extension HomeVC: UITableViewDataSource {
         else { return cell }
         
         let episode = FeedProvider.shared.episodes[indexPath.row]
-        let dateString = Date.dateToDateString(episode.pubDate)
-        episodeCell.titleLabel.text = episode.title
-        episodeCell.dateLabel.text = dateString
-        episodeCell.episodeImage.loadImage(episode.imageURLString)
+        episodeCell.layoutCell(with: episode)
         
         return episodeCell
     }
