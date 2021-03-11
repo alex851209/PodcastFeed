@@ -35,7 +35,7 @@ class HomeVC: UIViewController {
             switch result {
             case .success(let channel):
                 DispatchQueue.main.async {
-                    self.channelImage.loadImage(channel?.imageURLString)
+                    self.channelImage.loadImage(channel?.imageURL)
                     self.tableView.reloadData()
                 }
             case .failure(let error):

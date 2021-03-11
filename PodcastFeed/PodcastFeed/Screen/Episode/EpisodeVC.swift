@@ -11,7 +11,7 @@ class EpisodeVC: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var episodeImage: UIImageView!
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var contentTextView: UITextView!
     
     @IBAction func playButtonDidTap(_ sender: Any) { showPlayer() }
     
@@ -28,9 +28,9 @@ class EpisodeVC: UIViewController {
     
     private func configureEpisode() {
         let episode = FeedProvider.shared.getCurrentEpisode()
-        episodeImage.loadImage(episode?.imageURLString)
+        episodeImage.loadImage(episode?.imageURL)
         titleLabel.text = episode?.title
-        descriptionTextView.text = episode?.description
+        contentTextView.text = episode?.content
     }
     
     private func showPlayer() { performSegue(withIdentifier: Segue.playerVC, sender: nil) }

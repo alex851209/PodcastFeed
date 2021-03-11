@@ -13,7 +13,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeVC" customModule="PodcastFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WMY-qs-WuW">
@@ -96,7 +96,7 @@
             <objects>
                 <viewController id="UxL-IY-tuv" customClass="EpisodeVC" customModule="PodcastFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zmr-QP-Kzz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2O3-Mg-iPr">
@@ -161,7 +161,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Episode" id="JuP-I4-jeZ"/>
                     <connections>
-                        <outlet property="descriptionTextView" destination="cac-KZ-iJk" id="mua-u1-SkT"/>
+                        <outlet property="contentTextView" destination="cac-KZ-iJk" id="mua-u1-SkT"/>
                         <outlet property="episodeImage" destination="2O3-Mg-iPr" id="h7B-5b-WdV"/>
                         <outlet property="titleLabel" destination="yiE-xy-HYk" id="kW1-9d-rCZ"/>
                         <segue destination="3Bz-6p-Mdn" kind="show" identifier="SeguePlayerVC" id="b13-GP-HFe"/>
@@ -273,7 +273,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yXR-Dc-X7M" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wys-sC-FNe">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

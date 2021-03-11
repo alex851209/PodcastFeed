@@ -55,29 +55,35 @@ class FeedProvider {
     
     private func makeChannelFrom(feed: Feed) -> Channel? {
         guard let items = feed.rssFeed?.items,
-              let imageURLString = feed.rssFeed?.image?.url
+              let imageURL = feed.rssFeed?.image?.url
         else { return nil }
         
         for item in items {
             guard let episode = makeEpisodeFrom(item: item) else { return nil }
             episodes.append(episode)
         }
-        return Channel(imageURLString: imageURLString, episodes: episodes)
+        
+        let channel = Channel()
+        channel.imageURL = imageURL
+        channel.episodes = episodes
+        return channel
     }
     
     private func makeEpisodeFrom(item: RSSFeedItem) -> Episode? {
         guard let title = item.title,
-              let description = item.description,
-              let imageURLString = item.iTunes?.iTunesImage?.attributes?.href,
-              let mediaURLString = item.enclosure?.attributes?.url,
+              let content = item.description,
+              let imageURL = item.iTunes?.iTunesImage?.attributes?.href,
+              let mediaURL = item.enclosure?.attributes?.url,
               let pubDate = item.pubDate
         else { return nil }
         
-        let episode = Episode(title: title,
-                              description: description,
-                              imageURLString: imageURLString,
-                              pubDate: pubDate,
-                              mediaURLString: mediaURLString)
+        let dateString = Date.dateToDateString(pubDate)
+        let episode = Episode()
+        episode.title = title
+        episode.content = content
+        episode.imageURL = imageURL
+        episode.mediaURL = mediaURL
+        episode.pubDate = dateString
         return episode
     }
 }

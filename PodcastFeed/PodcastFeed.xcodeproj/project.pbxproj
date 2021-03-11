@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		116CAD5C40F912F4CC6ABB4B /* Pods_PodcastFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC932923945AE3B1AEACB66 /* Pods_PodcastFeed.framework */; };
+		A528212425FA56E700E69D4C /* FeedData.m in Sources */ = {isa = PBXBuildFile; fileRef = A528212325FA56E700E69D4C /* FeedData.m */; };
 		A5386CAB25F4E88F00883252 /* FeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5386CAA25F4E88F00883252 /* FeedData.swift */; };
 		A5D7C78E25F371DB00BB1094 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7C78D25F371DB00BB1094 /* AppDelegate.swift */; };
 		A5D7C79025F371DB00BB1094 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7C78F25F371DB00BB1094 /* SceneDelegate.swift */; };
@@ -26,6 +27,9 @@
 /* Begin PBXFileReference section */
 		13760FC72FC6CF00324A37E1 /* Pods-PodcastFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodcastFeed.release.xcconfig"; path = "Target Support Files/Pods-PodcastFeed/Pods-PodcastFeed.release.xcconfig"; sourceTree = "<group>"; };
 		3BC932923945AE3B1AEACB66 /* Pods_PodcastFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodcastFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A528212225FA56E700E69D4C /* PodcastFeed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PodcastFeed-Bridging-Header.h"; sourceTree = "<group>"; };
+		A528212325FA56E700E69D4C /* FeedData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedData.m; sourceTree = "<group>"; };
+		A528212625FA56F000E69D4C /* FeedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedData.h; sourceTree = "<group>"; };
 		A5386CAA25F4E88F00883252 /* FeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedData.swift; sourceTree = "<group>"; };
 		A5D7C78A25F371DB00BB1094 /* PodcastFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodcastFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D7C78D25F371DB00BB1094 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +60,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A528212125FA568900E69D4C /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				A528212625FA56F000E69D4C /* FeedData.h */,
+				A528212325FA56E700E69D4C /* FeedData.m */,
+				A528212225FA56E700E69D4C /* PodcastFeed-Bridging-Header.h */,
+			);
+			path = "Objective-C";
+			sourceTree = "<group>";
+		};
 		A5D7C78125F371DB00BB1094 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +94,7 @@
 				A5FB193C25F4C76F005A4D71 /* Startup */,
 				A5FB193E25F4C779005A4D71 /* Screen */,
 				A5FB193F25F4C787005A4D71 /* Model */,
+				A528212125FA568900E69D4C /* Objective-C */,
 				A5FB194025F4C796005A4D71 /* Extension */,
 				A5FB194225F4C7BF005A4D71 /* Helper */,
 				A5D7C79325F371DB00BB1094 /* Main.storyboard */,
@@ -209,6 +224,7 @@
 				TargetAttributes = {
 					A5D7C78925F371DB00BB1094 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -294,6 +310,7 @@
 				A5386CAB25F4E88F00883252 /* FeedData.swift in Sources */,
 				A5FB191A25F3A173005A4D71 /* EpisodeVC.swift in Sources */,
 				A5D7C79225F371DB00BB1094 /* HomeVC.swift in Sources */,
+				A528212425FA56E700E69D4C /* FeedData.m in Sources */,
 				A5D7C7B325F37DC100BB1094 /* FeedProvider.swift in Sources */,
 				A5D7C7A925F376A200BB1094 /* EpisodeCell.swift in Sources */,
 				A5D7C7B725F3898900BB1094 /* Date+Ext.swift in Sources */,
@@ -447,6 +464,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RFKB25HZB5;
 				INFOPLIST_FILE = PodcastFeed/Info.plist;
@@ -456,6 +474,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alex.PodcastFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PodcastFeed/Objective-C/PodcastFeed-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -467,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RFKB25HZB5;
 				INFOPLIST_FILE = PodcastFeed/Info.plist;
@@ -476,6 +497,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alex.PodcastFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PodcastFeed/Objective-C/PodcastFeed-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

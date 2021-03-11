@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct Channel {
-    
-    let imageURLString: String
-    let episodes: [Episode]
-}
-
-struct Episode {
-    
-    let title: String
-    let description: String
-    let imageURLString: String
-    let pubDate: Date
-    let mediaURLString: String
-}
+//struct Channel {
+//
+//    let imageURLString: String
+//    let episodes: [Episode]
+//}
+//
+//struct Episode {
+//
+//    let title: String
+//    let description: String
+//    let imageURLString: String
+//    let pubDate: Date
+//    let mediaURLString: String
+//}

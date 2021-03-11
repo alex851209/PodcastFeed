@@ -40,13 +40,15 @@ class PlayerVC: UIViewController {
     
     private func configureEpisode() {
         episode = FeedProvider.shared.getCurrentEpisode()
-        episodeImage.loadImage(episode?.imageURLString)
+        episodeImage.loadImage(episode?.imageURL)
         titleLabel.text = episode?.title
     }
     
     private func configurePlayer() {
-        guard let episodeURL = URL(string: episode?.mediaURLString ?? "") else { return }
-        playerItem = AVPlayerItem(url: episodeURL)
+        guard let mediaURLString = episode?.mediaURL,
+              let mediaURL = URL(string: mediaURLString)
+        else { return }
+        playerItem = AVPlayerItem(url: mediaURL)
         player = AVPlayer(playerItem: playerItem)
         player.play()
     }

@@ -14,10 +14,8 @@ class EpisodeCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     
     func layoutCell(with episode: Episode) {
-        let dateString = Date.dateToDateString(episode.pubDate)
-        
-        episodeImage.loadImage(episode.imageURLString)
+        episodeImage.loadImage(episode.imageURL)
         titleLabel.text = episode.title
-        dateLabel.text = dateString
+        dateLabel.text = episode.pubDate
     }
 }
