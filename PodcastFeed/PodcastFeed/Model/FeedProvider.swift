@@ -44,7 +44,14 @@ class FeedProvider {
         return currentIndex > 0 ? true : false
     }
     
-    func switchToNextEpisode() { self.currentIndex? -= 1 }
+    func hasPreviousEpisode() -> Bool {
+        guard let currentIndex = currentIndex else { return false }
+        return currentIndex < episodes.count - 1 ? true : false
+    }
+    
+    func switchToNextEpisode() { currentIndex? -= 1 }
+    
+    func switchToPreviousEpisode() { currentIndex? += 1 }
     
     private func makeChannelFrom(feed: Feed) -> Channel? {
         guard let items = feed.rssFeed?.items,

@@ -13,10 +13,11 @@ class PlayerVC: UIViewController {
     @IBOutlet weak var episodeImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressSlider: UISlider!
+    @IBOutlet weak var playPauseButton: UIButton!
     
-    @IBAction func playPauseButtonDidTap(_ sender: UIButton) { togglePlayPause(sender) }
-    @IBAction func backwardButtonDidTap() { fastBackward() }
-    @IBAction func forwardButtonDidTap() { fastForward() }
+    @IBAction func playPauseButtonDidTap() { togglePlayPause(playPauseButton) }
+    @IBAction func nextButtonDidTap() { switchToNextEpisode() }
+    @IBAction func previousButtonDidTap() { switchToPreviousEpisode() }
     @IBAction func currentTimeDidChanged(_ sender: UISlider) { updateCurrentTime(sender) }
     
     var player: AVPlayer!
@@ -77,6 +78,7 @@ class PlayerVC: UIViewController {
     }
     
     private func playEpisode() {
+        playPauseButton.setImage(UIImage(systemName: "pause.circle"), for: .normal)
         configureEpisode()
         configurePlayer()
         configureSlider()
@@ -95,14 +97,16 @@ class PlayerVC: UIViewController {
         }
     }
     
-    private func fastForward() {
-        let targetTime = player.currentTime() + CMTimeMake(value: 10, timescale: 1)
-        player.seek(to: targetTime)
+    private func switchToNextEpisode() {
+        guard FeedProvider.shared.hasNextEpisode() else { return }
+        FeedProvider.shared.switchToNextEpisode()
+        playEpisode()
     }
     
-    private func fastBackward() {
-        let targetTime = player.currentTime() - CMTimeMake(value: 10, timescale: 1)
-        player.seek(to: targetTime)
+    private func switchToPreviousEpisode() {
+        guard FeedProvider.shared.hasPreviousEpisode() else { return }
+        FeedProvider.shared.switchToPreviousEpisode()
+        playEpisode()
     }
     
     private func updateCurrentTime(_ sender: UISlider) {
@@ -112,8 +116,10 @@ class PlayerVC: UIViewController {
     }
     
     @objc private func playerDidFinishPlaying(note: NSNotification) {
-        guard FeedProvider.shared.hasNextEpisode() else { return }
-        FeedProvider.shared.switchToNextEpisode()
-        playEpisode()
+        guard FeedProvider.shared.hasNextEpisode() else {
+            playPauseButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
+            return
+        }
+        switchToNextEpisode()
     }
 }
