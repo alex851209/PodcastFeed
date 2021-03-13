@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AVFoundation
 
 class PlayerVC: UIViewController {
 
@@ -15,113 +14,98 @@ class PlayerVC: UIViewController {
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var playPauseButton: UIButton!
     
-    @IBAction func playPauseButtonDidTap() { togglePlayPause(playPauseButton) }
+    @IBAction func playPauseButtonDidTap() { togglePlayPause() }
     @IBAction func nextButtonDidTap() { switchToNextEpisode() }
     @IBAction func previousButtonDidTap() { switchToPreviousEpisode() }
-    @IBAction func currentTimeDidChanged(_ sender: UISlider) { updateCurrentTime(sender) }
+    @IBAction func currentTimeDidChanged() { updateCurrentTime() }
     
-    var player: AVPlayer!
-    var playerItem: AVPlayerItem!
-    var episode: Episode?
+    let playerManager = PlayerManager()
+    var episode: Episode? {
+        didSet {
+            episodeImage.loadImage(episode?.imageURL)
+            titleLabel.text = episode?.title
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureNotificationCenter()
+        playerManager.configureNotificationCenter()
+        update()
         playEpisode()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         
-        player.pause()
-        NotificationCenter.default.removeObserver(self)
+        playerManager.pause()
+        playerManager.reset()
     }
     
-    private func configureEpisode() {
-        episode = FeedProvider.shared.getCurrentEpisode()
-        episodeImage.loadImage(episode?.imageURL)
-        titleLabel.text = episode?.title
-    }
-    
-    private func configurePlayer() {
+    private func updatePlayer() {
         guard let mediaURLString = episode?.mediaURL,
               let mediaURL = URL(string: mediaURLString)
         else { return }
-        playerItem = AVPlayerItem(url: mediaURL)
-        player = AVPlayer(playerItem: playerItem)
-        player.play()
+        
+        playerManager.configurePlayer(withURL: mediaURL)
     }
     
-    private func configureSlider() {
-        let duration = playerItem.asset.duration
-        let seconds = CMTimeGetSeconds(duration)
+    private func updateSlider() {
+        guard let duration = playerManager.getDuration() else { return }
         progressSlider.minimumValue = 0
-        progressSlider.maximumValue = Float(seconds)
+        progressSlider.maximumValue = duration
         progressSlider.isContinuous = false
     }
     
-    private func configureObserver() {
-        player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1), queue: DispatchQueue.main) { time in
-            if self.player.currentItem?.status == .readyToPlay {
-                let currentTime = CMTimeGetSeconds(self.player.currentTime())
-                self.progressSlider.value = Float(currentTime)
-            }
+    private func updateObserver() {
+        playerManager.configureObserver { currentTime in
+            self.progressSlider.value = currentTime
         }
     }
     
-    private func configureNotificationCenter() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(playerDidFinishPlaying),
-            name: .AVPlayerItemDidPlayToEndTime,
-            object: nil
-        )
+    private func update() {
+        episode = FeedProvider.shared.getCurrentEpisode()
+        updatePlayer()
+        updateSlider()
+        updateObserver()
+        didFinishPlaying()
     }
     
     private func playEpisode() {
-        playPauseButton.setImage(UIImage(systemName: "pause.circle"), for: .normal)
-        configureEpisode()
-        configurePlayer()
-        configureSlider()
-        configureObserver()
+        playerManager.play()
+        playPauseButton.setImage(UIImage.asset(.pause), for: .normal)
     }
     
-    private func togglePlayPause(_ sender: UIButton) {
-        switch player.timeControlStatus {
-        case .playing:
-            player.pause()
-            sender.setImage(UIImage(systemName: "play.circle"), for: .normal)
-        case .paused:
-            player.play()
-            sender.setImage(UIImage(systemName: "pause.circle"), for: .normal)
-        default: break
-        }
+    private func pauseEpisode() {
+        playerManager.pause()
+        playPauseButton.setImage(UIImage.asset(.play), for: .normal)
+    }
+    
+    private func togglePlayPause() {
+        playerManager.isPlaying ? pauseEpisode() : playEpisode()
     }
     
     private func switchToNextEpisode() {
         guard FeedProvider.shared.hasNextEpisode() else { return }
         FeedProvider.shared.switchToNextEpisode()
+        update()
         playEpisode()
     }
     
     private func switchToPreviousEpisode() {
         guard FeedProvider.shared.hasPreviousEpisode() else { return }
         FeedProvider.shared.switchToPreviousEpisode()
+        update()
         playEpisode()
     }
     
-    private func updateCurrentTime(_ sender: UISlider) {
-        let seconds = Int64(sender.value)
-        let targetTime = CMTimeMake(value: seconds, timescale: 1)
-        player.seek(to: targetTime)
-    }
+    private func updateCurrentTime() { playerManager.updateCurrentTime(to: progressSlider.value) }
     
-    @objc private func playerDidFinishPlaying(note: NSNotification) {
-        guard FeedProvider.shared.hasNextEpisode() else {
-            playPauseButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
-            return
+    private func didFinishPlaying() {
+        playerManager.didFinishPlaying = { [weak self] in
+            guard let self = self else { return }
+            self.playPauseButton.setImage(UIImage.asset(.play), for: .normal)
+            if FeedProvider.shared.hasNextEpisode() { self.switchToNextEpisode() }
         }
-        switchToNextEpisode()
     }
 }
