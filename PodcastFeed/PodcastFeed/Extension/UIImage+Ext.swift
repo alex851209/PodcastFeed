@@ -7,13 +7,20 @@
 
 import UIKit
 
-enum ImageAsset: String {
+enum SystemAsset: String {
     
     case play = "play.circle"
     case pause = "pause.circle"
 }
 
+enum ImageAsset: String {
+    
+    case logo = "logo"
+}
+
 extension UIImage {
     
-    static func asset(_ asset: ImageAsset) -> UIImage? { return UIImage(systemName: asset.rawValue) }
+    static func systemAsset(_ asset: SystemAsset) -> UIImage? { return UIImage(systemName: asset.rawValue) }
+    
+    static func asset(_ asset: ImageAsset) -> UIImage? { return UIImage(named: asset.rawValue) }
 }

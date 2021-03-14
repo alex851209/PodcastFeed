@@ -73,12 +73,12 @@ class PlayerVC: UIViewController {
     
     private func playEpisode() {
         playerManager.play()
-        playPauseButton.setImage(UIImage.asset(.pause), for: .normal)
+        playPauseButton.setImage(UIImage.systemAsset(.pause), for: .normal)
     }
     
     private func pauseEpisode() {
         playerManager.pause()
-        playPauseButton.setImage(UIImage.asset(.play), for: .normal)
+        playPauseButton.setImage(UIImage.systemAsset(.play), for: .normal)
     }
     
     private func togglePlayPause() {
@@ -104,7 +104,7 @@ class PlayerVC: UIViewController {
     private func didFinishPlaying() {
         playerManager.didFinishPlaying = { [weak self] in
             guard let self = self else { return }
-            self.playPauseButton.setImage(UIImage.asset(.play), for: .normal)
+            self.playPauseButton.setImage(UIImage.systemAsset(.play), for: .normal)
             if FeedProvider.shared.hasNextEpisode() { self.switchToNextEpisode() }
         }
     }

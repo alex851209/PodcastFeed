@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+class HomeVC: DataLoadingVC {
 
     @IBOutlet weak var channelImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -30,15 +30,27 @@ class HomeVC: UIViewController {
     }
     
     private func fetchFeed() {
+        showLoadingView()
+        
         FeedProvider.shared.fetchFeed { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let channel):
                 DispatchQueue.main.async {
+                    if channel?.episodes.count == 0 {
+                        self.showEmptyStateView(in: self.view)
+                        self.dismissLoadingView()
+                        return
+                    }
                     self.channelImage.loadImage(channel?.imageURL)
                     self.tableView.reloadData()
+                    self.dismissLoadingView()
                 }
             case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showErrorStateView(with: error.localizedDescription, in: self.view)
+                    self.dismissLoadingView()
+                }
                 print(error)
             }
         }
