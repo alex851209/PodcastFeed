@@ -31,7 +31,7 @@ class PlayerVC: UIViewController {
         super.viewDidLoad()
 
         playerManager.configureNotificationCenter()
-        update()
+        updatePlayerSetting()
         playEpisode()
     }
     
@@ -63,7 +63,7 @@ class PlayerVC: UIViewController {
         }
     }
     
-    private func update() {
+    private func updatePlayerSetting() {
         episode = FeedProvider.shared.getCurrentEpisode()
         updatePlayer()
         updateSlider()
@@ -88,14 +88,14 @@ class PlayerVC: UIViewController {
     private func switchToNextEpisode() {
         guard FeedProvider.shared.hasNextEpisode() else { return }
         FeedProvider.shared.switchToNextEpisode()
-        update()
+        updatePlayerSetting()
         playEpisode()
     }
     
     private func switchToPreviousEpisode() {
         guard FeedProvider.shared.hasPreviousEpisode() else { return }
         FeedProvider.shared.switchToPreviousEpisode()
-        update()
+        updatePlayerSetting()
         playEpisode()
     }
     

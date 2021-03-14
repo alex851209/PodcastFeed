@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeVC.swift
 //  PodcastFeed
 //
 //  Created by shuo on 2021/3/6.
@@ -37,13 +37,12 @@ class HomeVC: DataLoadingVC {
             switch result {
             case .success(let channel):
                 DispatchQueue.main.async {
-                    if channel?.episodes.count == 0 {
+                    if channel.episodes.count > 0 {
+                        self.channelImage.loadImage(channel.imageURL)
+                        self.tableView.reloadData()
+                    } else {
                         self.showEmptyStateView(in: self.view)
-                        self.dismissLoadingView()
-                        return
                     }
-                    self.channelImage.loadImage(channel?.imageURL)
-                    self.tableView.reloadData()
                     self.dismissLoadingView()
                 }
             case .failure(let error):
@@ -51,7 +50,6 @@ class HomeVC: DataLoadingVC {
                     self.showErrorStateView(with: error.localizedDescription, in: self.view)
                     self.dismissLoadingView()
                 }
-                print(error)
             }
         }
     }

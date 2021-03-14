@@ -17,7 +17,7 @@ class FeedProvider {
     var episodes = [Episode]()
     var currentIndex: Int?
     
-    func fetchFeed(completion: @escaping (Result<Channel?, ParserError>) -> Void) {
+    func fetchFeed(completion: @escaping (Result<Channel, ParserError>) -> Void) {
         let feedURL = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss")!
         let parser = FeedParser(URL: feedURL)
         
@@ -26,7 +26,7 @@ class FeedProvider {
             
             switch result {
             case .success(let feed):
-                let channel = self.makeChannelFrom(feed: feed)
+                guard let channel = self.makeChannelFrom(feed: feed) else { return }
                 completion(.success(channel))
             case .failure(let error):
                 completion(.failure(error))
