@@ -15,6 +15,14 @@ class EpisodeVC: UIViewController {
     
     @IBAction func playButtonDidTap(_ sender: Any) { showPlayer() }
     
+    var episode: Episode? {
+        didSet {
+            episodeImage.loadImage(episode?.imageURL)
+            titleLabel.text = episode?.title
+            contentTextView.text = episode?.content
+        }
+    }
+    
     private struct Segue {
         
         static let playerVC = "SeguePlayerVC"
@@ -26,12 +34,7 @@ class EpisodeVC: UIViewController {
         configureEpisode()
     }
     
-    private func configureEpisode() {
-        let episode = FeedProvider.shared.getCurrentEpisode()
-        episodeImage.loadImage(episode?.imageURL)
-        titleLabel.text = episode?.title
-        contentTextView.text = episode?.content
-    }
+    private func configureEpisode() { episode = FeedProvider.shared.getCurrentEpisode() }
     
     private func showPlayer() { performSegue(withIdentifier: Segue.playerVC, sender: nil) }
 }
