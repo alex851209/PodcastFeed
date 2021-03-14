@@ -12,6 +12,8 @@ class HomeVC: DataLoadingVC {
     @IBOutlet weak var channelImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+    var provider = FeedProvider.shared
+    
     private struct Segue {
         
         static let episodeVC = "SegueEpisodeVC"
@@ -32,7 +34,7 @@ class HomeVC: DataLoadingVC {
     private func fetchFeed() {
         showLoadingView()
         
-        FeedProvider.shared.fetchFeed { [weak self] result in
+        provider.fetchFeed { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let channel):
@@ -58,7 +60,7 @@ class HomeVC: DataLoadingVC {
 extension HomeVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        FeedProvider.shared.currentIndex = indexPath.row
+        provider.currentIndex = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: Segue.episodeVC, sender: nil)
     }
@@ -67,7 +69,7 @@ extension HomeVC: UITableViewDelegate {
 extension HomeVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FeedProvider.shared.episodes.count
+        return provider.episodes.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 130 }
@@ -78,7 +80,7 @@ extension HomeVC: UITableViewDataSource {
         guard let episodeCell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? EpisodeCell
         else { return cell }
         
-        let episode = FeedProvider.shared.episodes[indexPath.row]
+        let episode = provider.episodes[indexPath.row]
         episodeCell.layoutCell(with: episode)
         
         return episodeCell

@@ -20,6 +20,7 @@ class PlayerVC: UIViewController {
     @IBAction func currentTimeDidChanged() { updateCurrentTime() }
     
     let playerManager = PlayerManager()
+    var provider = FeedProvider.shared
     var episode: Episode? {
         didSet {
             episodeImage.loadImage(episode?.imageURL)
@@ -64,7 +65,7 @@ class PlayerVC: UIViewController {
     }
     
     private func updatePlayerSetting() {
-        episode = FeedProvider.shared.getCurrentEpisode()
+        episode = provider.getCurrentEpisode()
         updatePlayer()
         updateSlider()
         updateObserver()
@@ -86,15 +87,15 @@ class PlayerVC: UIViewController {
     }
     
     private func switchToNextEpisode() {
-        guard FeedProvider.shared.hasNextEpisode() else { return }
-        FeedProvider.shared.switchToNextEpisode()
+        guard provider.hasNextEpisode() else { return }
+        provider.switchToNextEpisode()
         updatePlayerSetting()
         playEpisode()
     }
     
     private func switchToPreviousEpisode() {
-        guard FeedProvider.shared.hasPreviousEpisode() else { return }
-        FeedProvider.shared.switchToPreviousEpisode()
+        guard provider.hasPreviousEpisode() else { return }
+        provider.switchToPreviousEpisode()
         updatePlayerSetting()
         playEpisode()
     }
@@ -105,7 +106,7 @@ class PlayerVC: UIViewController {
         playerManager.didFinishPlaying = { [weak self] in
             guard let self = self else { return }
             self.playPauseButton.setImage(UIImage.systemAsset(.play), for: .normal)
-            if FeedProvider.shared.hasNextEpisode() { self.switchToNextEpisode() }
+            if self.provider.hasNextEpisode() { self.switchToNextEpisode() }
         }
     }
 }

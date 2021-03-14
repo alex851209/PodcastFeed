@@ -12,12 +12,12 @@ class FeedProvider {
     
     static let shared = FeedProvider()
     
-    private init() {}
+    init() {}
     
     var episodes = [Episode]()
     var currentIndex: Int?
     
-    func fetchFeed(completion: @escaping (Result<Channel, ParserError>) -> Void) {
+    func fetchFeed(completion: @escaping (Result<Channel, Error>) -> Void) {
         let feedURL = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss")!
         let parser = FeedParser(URL: feedURL)
         

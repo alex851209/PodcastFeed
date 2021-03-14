@@ -15,6 +15,7 @@ class EpisodeVC: UIViewController {
     
     @IBAction func playButtonDidTap(_ sender: Any) { showPlayer() }
     
+    var provider = FeedProvider.shared
     var episode: Episode? {
         didSet {
             episodeImage.loadImage(episode?.imageURL)
@@ -34,7 +35,7 @@ class EpisodeVC: UIViewController {
         configureEpisode()
     }
     
-    private func configureEpisode() { episode = FeedProvider.shared.getCurrentEpisode() }
+    private func configureEpisode() { episode = provider.getCurrentEpisode() }
     
     private func showPlayer() { performSegue(withIdentifier: Segue.playerVC, sender: nil) }
 }
